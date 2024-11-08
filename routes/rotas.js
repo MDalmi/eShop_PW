@@ -1,9 +1,9 @@
 const { Router } = require('express');
 
-const { rotasCategorias } = require('./rotasCategorias');
+const { rotasRobos } = require('./rotasCategorias');
 
 const rotas = new Router();
 
-rotas.use(rotasCategorias);
+rotas.use(rotasRobos);
 
 module.exports = rotas;
