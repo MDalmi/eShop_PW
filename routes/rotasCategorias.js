@@ -1,16 +1,16 @@
 const { Router } = require('express');
 
-const { getCategorias, addCategoria, updateCategoria, deleteCategoria, getCategoriaPorCodigo } = require('../controllers/categoriaControllers');
+const { getRobo, addRobo, updateRobo, deleteRobo, getRoboPorCodigo} = require('../controllers/roboControllers');
 
-const rotasCategorias = new Router();
+const rotasRobos = new Router();
 
-rotasCategorias.route('/categoria')
-   .get(getCategorias)
-   .post(addCategoria)
-   .put(updateCategoria)
+rotasRobos.route('/robo')
+   .get(getRobo)
+   .post(addRobo)
+   .put(updateRobo)
 
-rotasCategorias.route('/categoria/:codigo')
-   .get(getCategoriaPorCodigo)
-   .delete(deleteCategoria)
+rotasRobos.route('/robo/:codigo')
+   .get(getRoboPorCodigo)
+   .delete(deleteRobo)
 
-module.exports = { rotasCategorias };
+module.exports = { rotasRobos };

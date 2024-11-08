@@ -1,7 +1,7 @@
-const { getCategoriasDB, addCategoriaDB, updateCategoriaDB, deleteCategoriaDB, getCategoriaPorCodigoDB } = require('../useCases/categoriaUseCases')
+const { getRoboDB, addRoboDB, updateRoboDB, deleteRoboDB, getRoboPorCodigoDB } = require('../useCases/RoboUseCases')
 
-const getCategorias = async (request, response) => {
-    await getCategoriasDB()
+const getRobo = async (request, response) => {
+    await getRoboDB()
         .then(data => response.status(200).json(data))
         .catch(err => response.status(400).json({
             status: 'error',
@@ -9,8 +9,8 @@ const getCategorias = async (request, response) => {
         }));
 }
 
-const addCategoria = async (request, response) => {
-    await addCategoriaDB(request.body)
+const addRobo = async (request, response) => {
+    await addRoboDB(request.body)
         .then(data => response.status(200).json({
             status: "success", message: "Categoria criada",
             objeto: data
@@ -21,8 +21,8 @@ const addCategoria = async (request, response) => {
         }));
 }
 
-const updateCategoria = async (request, response) => {
-    await updateCategoriaDB(request.body)
+const updateRobo = async (request, response) => {
+    await updateRoboDB(request.body)
         .then(data => response.status(200).json({
             status: "success", message: "Categoria alterada",
             objeto: data
@@ -33,8 +33,8 @@ const updateCategoria = async (request, response) => {
         }));
 }
 
-const deleteCategoria = async (request, response) => {
-    await deleteCategoriaDB(parseInt(request.params.codigo))
+const deleteRobo = async (request, response) => {
+    await deleteRoboDB(parseInt(request.params.codigo))
         .then(data => response.status(200).json({
             status: "success", message: data
         }))
@@ -44,8 +44,8 @@ const deleteCategoria = async (request, response) => {
         }));        
 }
 
-const getCategoriaPorCodigo= async (request, response) => {
-    await getCategoriaPorCodigoDB(parseInt(request.params.codigo))
+const getRoboPorCodigo= async (request, response) => {
+    await getRoboPorCodigoDB(parseInt(request.params.codigo))
         .then(data => response.status(200).json(data))
         .catch(err => response.status(400).json({
             status: 'error',
@@ -54,5 +54,5 @@ const getCategoriaPorCodigo= async (request, response) => {
 }
 
 module.exports = {
-   getCategorias, addCategoria, updateCategoria, deleteCategoria, getCategoriaPorCodigo
+   getRobo, addRobo, updateRobo, deleteRobo, getRoboPorCodigo
 }
