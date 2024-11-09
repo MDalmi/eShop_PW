@@ -12,13 +12,12 @@ const getRoboDB = async () => {
 
 const addRoboDB = async (body) => {
     try {
-        const { nome } = body;
-        const results = await pool.query(`INSERT INTO robos (nome) 
-            VALUES ($1)
-            returning codigo, nome`,
-            [nome]);
+        const { nome, tipo, capacidade, descricao } = body;
+        const results = await pool.query(`INSERT INTO robos (nome, tipo_robo, capacidade_max, descricao) 
+            VALUES ($1, $2, $3, $4)`,
+            [nome, tipo, capacidade, descricao]);
         const robo = results.rows[0];
-        return new Robo(robo.codigo, robo.nome);
+        return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
     } catch (err) {
         throw "Erro ao inserir o Robô: " + err;
     }
@@ -28,14 +27,14 @@ const addRoboDB = async (body) => {
 const updateRoboDB = async (body) => {
     try {
         const { codigo, nome, tipo, capacidade, descricao } = body;
-        const results = await pool.query(`UPDATE robos set nome = $2, tipo_robo = $3, capacidade_max = $4, descricao = $5 where codigo = $1 
-        returning codigo, nome`,
+        const results = await pool.query(`UPDATE robos set nome = $2, tipo_robo = $3, capacidade_max = $4, 
+            descricao = $5 where codigo = $1`,
             [codigo, nome, tipo, capacidade, descricao]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
         }
-        const categoria = results.rows[0];
-        return new Categoria(categoria.codigo, categoria.nome);
+        const robo = results.rows[0];
+        return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
     } catch (err) {
         throw "Erro ao alterar a categoria: " + err;
     }
@@ -48,7 +47,7 @@ const deleteRoboDB = async (codigo) => {
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo} para ser removido`;
         } else {
-            return "Robô removida com sucesso";
+            return "Robô removido com sucesso";
         }
     } catch (err) {
         throw "Erro ao remover o Robô: " + err;

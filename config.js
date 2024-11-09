@@ -11,10 +11,10 @@ if (isProduction) {
   })
 } else {
   pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'eshop',
-    password: 'postgres',
+    user: 'db_trabalhopw_user',
+    host: 'dpg-csb5i5d6l47c73f89nqg-a.oregon-postgres.render.com',
+    database: 'db_trabalhopw',
+    password: 'xuFn46HFzC6uewwG4AKWGiRqhhCfYg1T',
     port: 5432
   })
 }
