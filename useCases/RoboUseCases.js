@@ -7,7 +7,7 @@ const getRoboDB = async () => {
                     R.capacidade_max AS capacidade, R.descricao as descricao, R.valor_aluguel AS valor_aluguel, R.tipo AS tipo
                     FROM robos R 
                     ORDER BY nome`);
-        return rows.map((robo) => new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao, robo.valor_aluguel));
+        return rows.map((robo) => new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo))
     } catch (err) {
         throw "Erro : " + err;
     }
@@ -20,7 +20,7 @@ const addRoboDB = async (body) => {
             VALUES ($1, $2, $3, $4, $5)`,
             [nome, capacidade, descricao, valor_aluguel, tipo]);
         const robo = results.rows[0];
-        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
+        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
     } catch (err) {
         throw "Erro ao inserir o Robô: " + err;
     }
@@ -37,7 +37,7 @@ const updateRoboDB = async (body) => {
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
         }
         const robo = results.rows[0];
-        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
+        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
     } catch (err) {
         throw "Erro ao alterar o Robô: " + err;
     }
