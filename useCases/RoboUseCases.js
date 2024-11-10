@@ -3,7 +3,10 @@ const Robo = require('../entities/Robo')
 
 const getRoboDB = async () => {
     try {
-        const { rows } = await pool.query('SELECT * FROM robos ORDER BY nome');
+        const { rows } = await pool.query(`SELECT R.codigo AS codigo, R.nome AS nome,          
+                    R.capacidade_max AS capacidade, R.descricao as descricao, R.valor_aluguel AS valor_aluguel, R.tipo AS tipo
+                    FROM robos R 
+                    ORDER BY nome`);
         return rows.map((robo) => new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao, robo.valor_aluguel));
     } catch (err) {
         throw "Erro : " + err;
@@ -62,7 +65,7 @@ const getRoboPorCodigoDB = async (codigo) => {
             throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
             const robo = results.rows[0];
-            return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
+            return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
         }
     } catch (err) {
         throw "Erro ao recuperar o robô: " + err;
