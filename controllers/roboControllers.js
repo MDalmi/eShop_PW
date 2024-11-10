@@ -12,7 +12,7 @@ const getRobo = async (request, response) => {
 const addRobo = async (request, response) => {
     await addRoboDB(request.body)
         .then(data => response.status(200).json({
-            status: "success", message: "Categoria criada",
+            status: "success", message: "Robô criado",
             objeto: data
         }))
         .catch(err => response.status(400).json({
@@ -24,7 +24,7 @@ const addRobo = async (request, response) => {
 const updateRobo = async (request, response) => {
     await updateRoboDB(request.body)
         .then(data => response.status(200).json({
-            status: "success", message: "Categoria alterada",
+            status: "success", message: "Robô alterado",
             objeto: data
         }))
         .catch(err => response.status(400).json({
