@@ -60,7 +60,7 @@ const deleteRoboDB = async (codigo) => {
 const getRoboPorCodigoDB = async (codigo) => {
     try {
         const results = await pool.query(`SELECT codigo, nome,          
-                    capacidade, descricao, valor_aluguel, tipo
+                    capacidade_max, descricao, valor_aluguel, tipo
                     FROM robos WHERE codigo = $1`,
             [codigo]);
         if (results.rowCount == 0) {
