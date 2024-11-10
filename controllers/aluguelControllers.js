@@ -1,5 +1,5 @@
 const { getAluguelDB, addAluguelDB, updateAluguelDB, 
-    deleteAluguelDB, getAluguelPorCodigoDB } = require('../usecases/AluguelUseCases');
+    deleteAluguelDB, getAluguelPorCodigoDB } = require('../useCases/AluguelUseCase');
 
 const getAluguel = async (request, response) => {
     await getAluguelDB()
