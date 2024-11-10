@@ -1,5 +1,5 @@
 class Robo {
-    constructor(codigo, nome, tipo, capacidade, descricao, valor_aluguel) {
+    constructor(codigo, nome, capacidade, descricao, valor_aluguel, tipo) {
         this.codigo = codigo;
         this.nome = nome;
         this.capacidade = capacidade;
