@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { rotasRobos } = require('./rotasRobos');
+const { rotasRobos } = require('./rotasCategorias');
 const { rotasAluguel } = require('./rotasAluguel')
 
 const rotas = new Router();
