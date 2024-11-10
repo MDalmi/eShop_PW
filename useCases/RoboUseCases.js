@@ -12,10 +12,10 @@ const getRoboDB = async () => {
 
 const addRoboDB = async (body) => {
     try {
-        const { nome, tipo, capacidade, descricao } = body;
-        const results = await pool.query(`INSERT INTO robos (nome, tipo_robo, capacidade_max, descricao) 
-            VALUES ($1, $2, $3, $4)`,
-            [nome, tipo, capacidade, descricao]);
+        const { codigo, nome, tipo, capacidade, descricao } = body;
+        const results = await pool.query(`INSERT INTO robos (codigo, nome, tipo_robo, capacidade_max, descricao) 
+            VALUES ($1, $2, $3, $4, $5)`,
+            [codigo, nome, tipo, capacidade, descricao]);
         const robo = results.rows[0];
         return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
     } catch (err) {
