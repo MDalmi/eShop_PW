@@ -4,7 +4,7 @@ const Robo = require('../entities/Robo')
 const getRoboDB = async () => {
     try {
         const { rows } = await pool.query('SELECT * FROM robos ORDER BY nome');
-        return rows.map((robo) => new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao));
+        return rows.map((robo) => new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao, robo.valor_aluguel));
     } catch (err) {
         throw "Erro : " + err;
     }
@@ -12,12 +12,12 @@ const getRoboDB = async () => {
 
 const addRoboDB = async (body) => {
     try {
-        const { codigo, nome, tipo, capacidade, descricao } = body;
-        const results = await pool.query(`INSERT INTO robos (codigo, nome, tipo_robo, capacidade_max, descricao) 
+        const { nome, capacidade, descricao, valor_aluguel, tipo } = body;
+        const results = await pool.query(`INSERT INTO robos (nome, capacidade_max, descricao, valor_aluguel, tipo) 
             VALUES ($1, $2, $3, $4, $5)`,
-            [codigo, nome, tipo, capacidade, descricao]);
+            [nome, capacidade, descricao, valor_aluguel, tipo]);
         const robo = results.rows[0];
-        return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
+        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
     } catch (err) {
         throw "Erro ao inserir o Robô: " + err;
     }
@@ -26,17 +26,17 @@ const addRoboDB = async (body) => {
 
 const updateRoboDB = async (body) => {
     try {
-        const { codigo, nome, tipo, capacidade, descricao } = body;
-        const results = await pool.query(`UPDATE robos set nome = $2, tipo_robo = $3, capacidade_max = $4, 
-            descricao = $5 where codigo = $1`,
-            [codigo, nome, tipo, capacidade, descricao]);
+        const { codigo, nome, capacidade, descricao , valor_aluguel, tipo} = body;
+        const results = await pool.query(`UPDATE robos set nome = $2, , capacidade_max = $3, 
+            descricao = $4, valor_aluguel = $5, tipo = $6 WHERE codigo = $1`,
+            [codigo, nome, capacidade, descricao, valor_aluguel, tipo]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
         }
         const robo = results.rows[0];
-        return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
+        return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
     } catch (err) {
-        throw "Erro ao alterar a categoria: " + err;
+        throw "Erro ao alterar o Robô: " + err;
     }
 }
 
@@ -62,10 +62,10 @@ const getRoboPorCodigoDB = async (codigo) => {
             throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
             const robo = results.rows[0];
-            return new Robo(robo.codigo, robo.nome, robo.tipo, robo.capacidade, robo.descricao);
+            return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo,);
         }
     } catch (err) {
-        throw "Erro ao recuperar a categoria: " + err;
+        throw "Erro ao recuperar o robô: " + err;
     }
 }
 

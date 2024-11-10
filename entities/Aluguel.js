@@ -1,8 +1,9 @@
 class Aluguel {
-    constructor(codigo, nome, robo, planeta, descricao) {
+    constructor(codigo, nome, robo, robo_nome, planeta, descricao) {
         this.codigo = codigo;
         this.nome = nome;
         this.robo = robo;
+        this.robo = robo_nome;
         this.planeta = planeta;
         this.descricao = descricao;
     }
