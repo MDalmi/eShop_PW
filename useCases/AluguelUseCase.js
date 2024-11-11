@@ -71,7 +71,8 @@ const deleteAluguelDB = async (codigo) => {
 
 const getAluguelPorCodigoDB = async (codigo) => {
     try {
-        const results = await pool.query(`SELECT R.codigo AS codigo, 
+        const results = await pool.query(`
+        SELECT R.codigo AS codigo, 
         R.nome AS nome,          
         R.robo AS robo, 
         R.planeta AS planeta, 
@@ -85,7 +86,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
         } else {
             const aluguel = results.rows[0];
             return new Aluguel(aluguel.codigo, aluguel.nome,
-                aluguel.planeta, aluguel.robo, aluguel.descricao,
+                aluguel.robo,aluguel.planeta, aluguel.descricao,
                 "");
         }
     } catch (err) {
