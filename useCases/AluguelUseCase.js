@@ -21,8 +21,7 @@ const addAluguelDB = async (body) => {
     try {
         const { nome, planeta, robo, descricao } = body;
         const results = await pool.query(`INSERT INTO aluguel_robos (nome, planeta, robo,  descricao_mis)
-            VALUES ($1, $2, $3, $4) RETURNING codigo, nome, 
-            planeta, robo, descricao_mis`,
+            VALUES ($1, $2, $3, $4)`,
             [nome, planeta, robo, descricao]);
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
@@ -75,7 +74,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
     try {
         const results = await pool.query(
             `SELECT A.codigo AS codigo, A.nome AS nome,          
-                    A.robo AS robo, r.nome as robo_nome, A.planeta AS planeta, A.descricao_mis AS descricao
+                    A.robo AS robo, A.planeta AS planeta, A.descricao_mis AS descricao
                     FROM aluguel_robos A 
                     JOIN robos r ON r.codigo = A.robo
                     WHERE A.codigo = $1`, [codigo]);
