@@ -83,11 +83,13 @@ const getAluguelPorCodigoDB = async (codigo) => {
         if (results.rowCount == 0) {
             throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
-            const robo = results.rows[0];
-            return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
+            const aluguel = results.rows[0];
+            return new Aluguel(aluguel.codigo, aluguel.nome,
+                aluguel.planeta, aluguel.robo, aluguel.descricao,
+                "");
         }
     } catch (err) {
-        throw "Erro ao recuperar o robô: " + err;
+        throw "Erro ao recuperar o aluguel: " + err;
     }
 }
 
