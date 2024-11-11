@@ -21,12 +21,12 @@ const addAluguelDB = async (body) => {
     try {
         const { nome, robo, planeta, descricao } = body;
         const results = await pool.query(`INSERT INTO aluguel_robos (nome, robo,planeta, descricao_mis)
-            VALUES ($1, $2, $3, $4)  RETURNING codigo, nome, 
-            robo, planeta, descricao_mis `,
+            VALUES ($1, $2, $3, $4) 
+            RETURNING codigo, nome, robo, planeta, descricao_mis`,
             [nome, robo, planeta, descricao]);
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
-            aluguel.robo, aluguel.planeta,
+            aluguel.robo, "",  aluguel.planeta,
             aluguel.descricao);
     } catch (err) {
         throw "Erro ao inserir o aluguel: " + err;
@@ -48,8 +48,8 @@ const updateAluguelDB = async (body) => {
         }
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
-            aluguel.robo, aluguel.planeta, aluguel.descricao,
-            "");
+            aluguel.robo, "", aluguel.planeta, aluguel.descricao
+            );
     } catch (err) {
         throw "Erro ao alterar o aluguel: " + err;
     }
@@ -92,9 +92,10 @@ const getAluguelPorCodigoDB = async (codigo) => {
                 aluguel.codigo,
                 aluguel.nome,
                 aluguel.robo,
+                "",
                 aluguel.planeta,
-                aluguel.descricao,
-                ""
+                aluguel.descricao
+                
             );
         }
     } catch (err) {
