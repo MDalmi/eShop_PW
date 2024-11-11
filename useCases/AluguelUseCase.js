@@ -73,18 +73,17 @@ const deleteAluguelDB = async (codigo) => {
 const getAluguelPorCodigoDB = async (codigo) => {
     try {
         const results = await pool.query(
-            `SELECT A.codigo AS codigo, A.nome AS nome,          
-                    A.robo AS robo, A.planeta AS planeta, A.descricao_mis AS descricao
-                    FROM aluguel_robos A 
-                    JOIN robos r ON r.codigo = A.robo
-                    WHERE A.codigo = $1`, [codigo]);
+            `SELECT A.codigo AS codigo, A.nome AS nome, A.robo AS robo, A.planeta AS planeta, A.descricao_mis AS descricao
+             FROM aluguel_robos A 
+             JOIN robos r ON r.codigo = A.robo
+             WHERE codigo = $1`, [codigo]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo}`;
         } else {
             const aluguel = results.rows[0];
             return new Aluguel(aluguel.codigo, aluguel.nome,
-                aluguel.planeta, aluguel.robo, aluguel.descricao,
-                "");
+                aluguel.planeta, aluguel.robo, aluguel.descricao
+            );
         }
     } catch (err) {
         throw "Erro ao recuperar o aluguel: " + err;
