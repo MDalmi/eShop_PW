@@ -20,9 +20,9 @@ const getAluguelDB = async () => {
 const addAluguelDB = async (body) => {
     try {
         const { nome, robo, planeta, descricao } = body;
-        const results = await pool.query(`INSERT INTO aluguel_robos (nome, robo,planeta, descricao_mis)
+        const results = await pool.query(`INSERT INTO aluguel_robos (nome, robo , planeta, descricao_mis)
             VALUES ($1, $2, $3, $4) 
-            RETURNING codigo, nome, robo, planeta, descricao_mis`,
+            RETURNING  nome, robo, planeta, descricao_mis`,
             [nome, robo, planeta, descricao]);
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
@@ -82,8 +82,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
                     FROM aluguel_robos A 
                     JOIN robos r ON r.codigo = A.robo
         WHERE A.codigo = $1
-        RETURNING codigo, nome, 
-        robo, planeta, descricao `, [codigo]);
+        `, [codigo]);
 
         if (results.rowCount === 0) {
             throw new Error(`Nenhum registro encontrado com o código: ${codigo}`);
