@@ -76,7 +76,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
         SELECT A.codigo AS codigo, 
                     A.nome AS nome,          
                     A.robo AS robo, 
-                    r.nome AS robo_nome
+                    r.nome AS robo_nome,
                     A.planeta AS planeta, 
                     A.descricao_mis AS descricao
                     FROM aluguel_robos A 
