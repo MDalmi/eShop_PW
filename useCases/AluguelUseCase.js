@@ -76,7 +76,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
             `SELECT A.codigo AS codigo, A.nome AS nome, A.robo AS robo, A.planeta AS planeta, A.descricao_mis AS descricao
              FROM aluguel_robos A 
              JOIN robos r ON r.codigo = A.robo
-             WHERE codigo = $1`, [codigo]);
+             WHERE A.codigo = $1`, [codigo]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo}`;
         } else {
