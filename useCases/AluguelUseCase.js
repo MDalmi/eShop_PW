@@ -19,15 +19,14 @@ const getAluguelDB = async () => {
 
 const addAluguelDB = async (body) => {
     try {
-        const { nome, planeta, robo, descricao } = body;
-        const results = await pool.query(`INSERT INTO aluguel_robos (nome, planeta, robo,  descricao_mis)
+        const { nome, robo, planeta, descricao } = body;
+        const results = await pool.query(`INSERT INTO aluguel_robos (nome, robo,planeta, descricao_mis)
             VALUES ($1, $2, $3, $4)`,
-            [nome, planeta, robo, descricao]);
+            [nome, robo, planeta, descricao]);
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
-            aluguel.planeta, aluguel.robo,
-            aluguel.descricao,
-            "");
+            aluguel.robo, aluguel.planeta,
+            aluguel.descricao);
     } catch (err) {
         throw "Erro ao inserir o aluguel: " + err;
     }
@@ -72,21 +71,23 @@ const deleteAluguelDB = async (codigo) => {
 
 const getAluguelPorCodigoDB = async (codigo) => {
     try {
-        const results = await pool.query(
-            `SELECT A.codigo AS codigo, A.nome AS nome, A.robo AS robo, A.planeta AS planeta, A.descricao_mis AS descricao
-             FROM aluguel_robos A 
-             JOIN robos r ON r.codigo = A.robo
-             WHERE A.codigo = $1`, [codigo]);
+        const results = await pool.query(`SELECT R.codigo AS codigo, 
+        R.nome AS nome,          
+        R.robo AS robo, 
+        R.planeta AS planeta, 
+        R.descricao_mis AS descricao_mis
+        FROM aluguel_robos R 
+        JOIN robos ON robos.codigo = R.robo
+        WHERE R.codigo =  $1 `,
+            [codigo]);
         if (results.rowCount == 0) {
-            throw `Nenhum registro encontrado com o código ${codigo}`;
+            throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
-            const aluguel = results.rows[0];
-            return new Aluguel(aluguel.codigo, aluguel.nome,
-                aluguel.planeta, aluguel.robo, aluguel.descricao
-            );
+            const robo = results.rows[0];
+            return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
         }
     } catch (err) {
-        throw "Erro ao recuperar o aluguel: " + err;
+        throw "Erro ao recuperar o robô: " + err;
     }
 }
 
