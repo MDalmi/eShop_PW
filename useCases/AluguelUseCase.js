@@ -26,7 +26,7 @@ const addAluguelDB = async (body) => {
             [nome, robo, planeta, descricao]);
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
-            aluguel.robo, "",  aluguel.planeta,
+            aluguel.robo, "", aluguel.planeta,
             aluguel.descricao);
     } catch (err) {
         throw "Erro ao inserir o aluguel: " + err;
@@ -49,7 +49,7 @@ const updateAluguelDB = async (body) => {
         const aluguel = results.rows[0];
         return new Aluguel(aluguel.codigo, aluguel.nome,
             aluguel.robo, "", aluguel.planeta, aluguel.descricao
-            );
+        );
     } catch (err) {
         throw "Erro ao alterar o aluguel: " + err;
     }
@@ -73,15 +73,15 @@ const deleteAluguelDB = async (codigo) => {
 const getAluguelPorCodigoDB = async (codigo) => {
     try {
         const results = await pool.query(`
-            SELECT R.codigo AS codigo, 
-                   R.nome AS nome,          
-                   R.robo AS robo, 
-                   r.nome as robo_nome
-                   R.planeta AS planeta, 
-                   R.descricao_mis AS descricao
-            FROM aluguel_robos R 
-            JOIN robos r ON r.codigo = R.robo
-            WHERE R.codigo = $1`, [codigo]);
+        SELECT A.codigo AS codigo, 
+        A.nome AS nome,          
+        A.robo AS robo, 
+        c.nome as robo_nome,
+        A.planeta AS planeta, 
+        A.descricao_mis AS descricao
+        FROM aluguel_robos A
+        JOIN robos c ON c.codigo = A.robo
+        WHERE A.codigo = $1`, [codigo]);
 
         if (results.rowCount === 0) {
             throw new Error(`Nenhum registro encontrado com o código: ${codigo}`);
@@ -94,7 +94,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
                 aluguel.robo_nome,
                 aluguel.planeta,
                 aluguel.descricao
-                
+
             );
         }
     } catch (err) {
