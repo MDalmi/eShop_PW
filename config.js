@@ -19,7 +19,8 @@ if (isProduction){
         database : 'db_trabalhopw',
         host : 'dpg-csb5i5d6l47c73f89nqg-a.oregon-postgres.render.com',
         port : 5432
-    })
+    }
+    )
 }
 
 module.exports = { pool }
