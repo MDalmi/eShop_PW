@@ -3,7 +3,7 @@ class Aluguel {
         this.codigo = codigo;
         this.nome = nome;
         this.robo = robo;
-        this.robo = robo_nome;
+        this.robo_nome = robo_nome;
         this.planeta = planeta;
         this.descricao = descricao;
     }
