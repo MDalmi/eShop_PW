@@ -80,9 +80,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
                    R.descricao_mis AS descricao_mis
             FROM aluguel_robos R 
             JOIN robos ON robos.codigo = R.robo
-            WHERE R.codigo = $1
-            RETURNING codigo, nome, 
-            robo, planeta, descricao_mis`, [codigo]);
+            WHERE R.codigo = $1`, [codigo]);
 
         if (results.rowCount === 0) {
             throw new Error(`Nenhum registro encontrado com o código: ${codigo}`);
