@@ -73,8 +73,12 @@ const deleteAluguelDB = async (codigo) => {
 const getAluguelPorCodigoDB = async (codigo) => {
     try {
         const results = await pool.query(`
-        SELECT A.codigo AS codigo, A.nome AS nome,          
-                    A.robo AS robo, r.nome as robo_nome, A.planeta AS planeta, A.descricao_mis AS descricao
+        SELECT A.codigo AS codigo, 
+                    A.nome AS nome,          
+                    A.robo AS robo, 
+                    r.nome as robo_nome, 
+                    A.planeta AS planeta, 
+                    A.descricao_mis AS descricao
                     FROM aluguel_robos A 
                     JOIN robos r ON r.codigo = A.robo
         WHERE A.codigo = $1`, [codigo]);
@@ -87,7 +91,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
                 aluguel.codigo,
                 aluguel.nome,
                 aluguel.robo,
-                aluguel.robo_nome,
+                "",
                 aluguel.planeta,
                 aluguel.descricao
 
