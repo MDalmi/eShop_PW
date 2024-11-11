@@ -76,10 +76,11 @@ const getAluguelPorCodigoDB = async (codigo) => {
             SELECT R.codigo AS codigo, 
                    R.nome AS nome,          
                    R.robo AS robo, 
+                   r.nome as robo_nome
                    R.planeta AS planeta, 
                    R.descricao_mis AS descricao
             FROM aluguel_robos R 
-            JOIN robos ON robos.codigo = R.robo
+            JOIN robos r ON r.codigo = R.robo
             WHERE R.codigo = $1`, [codigo]);
 
         if (results.rowCount === 0) {
@@ -90,6 +91,7 @@ const getAluguelPorCodigoDB = async (codigo) => {
                 aluguel.codigo,
                 aluguel.nome,
                 aluguel.robo,
+                aluguel.robo_nome,
                 aluguel.planeta,
                 aluguel.descricao
                 
