@@ -38,9 +38,7 @@ const updateAluguelDB = async (body) => {
         const { codigo, nome, robo, planeta, descricao } = body;
         const results = await pool.query(`UPDATE aluguel_robos SET nome = $2,
             planeta = $3, robo = $4, descricao_mis = $5
-            WHERE codigo = $1
-            RETURNING codigo, nome, 
-            robo, planeta, descricao_mis`,
+            WHERE codigo = $1`,
             [codigo, nome, robo, planeta, descricao]);
         if (results.rowCount == 0) {
             throw `Nenhum registro encontrado com o código ${codigo}
