@@ -6,12 +6,12 @@ const { verificaJWT } = require('../controllers/segurancaController')
 
 const rotasAluguel = new Router();
 
-rotasAluguel.route('/aluguel')
+rotasAluguel.route('/privado/aluguel')
    .get(verificaJWT, getAluguel)
    .post(verificaJWT, addAluguel)
    .put(verificaJWT, updateAluguel)
 
-rotasAluguel.route('/aluguel/:codigo')
+rotasAluguel.route('/privado/aluguel/:codigo')
    .get(verificaJWT, getAluguelPorCodigo)
    .delete(verificaJWT, deleteAluguel)
 
