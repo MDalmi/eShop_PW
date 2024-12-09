@@ -4,7 +4,7 @@ const Aluguel = require('../entities/Aluguel');
 const getAluguelDB = async () => {
     try {
         const { rows } = await pool.query(`SELECT A.codigo AS codigo, A.nome AS nome,          
-                    A.robo AS robo, r.nome as robo_nome, A.planeta AS planeta, A.descricao_mis AS descricao
+                    A.robo AS robo, r.nome as robo_nome, A.planeta AS planeta, A.descricao AS descricao
                     FROM aluguel_robos A 
                     JOIN robos r ON r.codigo = A.robo
                     ORDER BY A.codigo`);
