@@ -13,9 +13,9 @@ const getRoboDB = async () => {
 const addRoboDB = async (body) => {
     try {
         const { nome, capacidade, descricao, valor_aluguel, tipo } = body;
-        const results = await pool.query(`INSERT INTO robos (nome, capacidade_max, descricao, valor_aluguel, tipo) 
+        const results = await pool.query(`INSERT INTO robos (nome, capacidade, descricao, valor_aluguel, tipo) 
             VALUES ($1, $2, $3, $4, $5) RETURNING codigo, nome, 
-            capacidade_max, descricao, valor_aluguel, tipo `,
+            capacidade, descricao, valor_aluguel, tipo `,
             [nome, capacidade, descricao, valor_aluguel, tipo]);
         const robo = results.rows[0];
         return new Robo(robo.codigo, robo.nome, robo.capacidade, robo.descricao, robo.valor_aluguel, robo.tipo);
@@ -28,10 +28,10 @@ const addRoboDB = async (body) => {
 const updateRoboDB = async (body) => {
     try {
         const { codigo, nome, capacidade, descricao, valor_aluguel, tipo } = body;
-        const results = await pool.query(`UPDATE robos SET nome = $2, capacidade_max = $3, 
+        const results = await pool.query(`UPDATE robos SET nome = $2, capacidade = $3, 
             descricao = $4, valor_aluguel = $5, tipo = $6 WHERE codigo = $1 
             RETURNING codigo, nome, 
-            capacidade_max, descricao, 
+            capacidade, descricao, 
             valor_aluguel, tipo`,
             [codigo, nome, capacidade, descricao, valor_aluguel, tipo]);
         if (results.rowCount == 0) {
